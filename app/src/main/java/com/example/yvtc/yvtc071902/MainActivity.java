@@ -9,16 +9,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     ListView lv;
     String cities[] = {"台北", "台中", "台南", "高雄","台北1", "台中1", "台南1", "高雄1","台北2", "台中2", "台南2", "高雄2"};
+    boolean chks[];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        chks = new boolean[cities.length];
         lv = (ListView) findViewById(R.id.listView);
         MyAdapter adapter = new MyAdapter();
         lv.setAdapter(adapter);
@@ -43,13 +46,20 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             Log.d("MyView", "getView position:" + position);
 
             LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
             View v = inflater.inflate(R.layout.myitem, null);
-            CheckBox chk = (CheckBox) v.findViewById(R.id.checkBox);
+            final CheckBox chk = (CheckBox) v.findViewById(R.id.checkBox);
             chk.setText(cities[position]);
+            chk.setChecked(chks[position]);
+            chk.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    chks[position] = isChecked;
+                }
+            });
 
             TextView tv = (TextView) v.findViewById(R.id.textView);
             tv.setText(cities[position]);
