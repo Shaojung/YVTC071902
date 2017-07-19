@@ -1,10 +1,14 @@
 package com.example.yvtc.yvtc071902;
 
 import android.Manifest;
+import android.app.backup.BackupDataOutput;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.StringBuilderPrinter;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -12,6 +16,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     ListView lv;
@@ -25,6 +30,27 @@ public class MainActivity extends AppCompatActivity {
         lv = (ListView) findViewById(R.id.listView);
         MyAdapter adapter = new MyAdapter();
         lv.setAdapter(adapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add("Show");
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        StringBuilder sb = new StringBuilder();
+        int i;
+        for (i=0;i<cities.length;i++)
+        {
+            if (chks[i])
+            {
+                sb.append(cities[i] + ",");
+            }
+        }
+        Toast.makeText(MainActivity.this, sb.toString(), Toast.LENGTH_SHORT).show();
+        return super.onOptionsItemSelected(item);
     }
 
     class MyAdapter extends BaseAdapter
