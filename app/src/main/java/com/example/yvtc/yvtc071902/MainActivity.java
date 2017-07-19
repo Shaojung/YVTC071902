@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         chks = new boolean[cities.length];
         lv = (ListView) findViewById(R.id.listView);
-        MyAdapter adapter = new MyAdapter();
+        MyAdapter adapter = new MyAdapter(MainActivity.this, cities, chks);
         lv.setAdapter(adapter);
     }
 
@@ -51,46 +51,6 @@ public class MainActivity extends AppCompatActivity {
         }
         Toast.makeText(MainActivity.this, sb.toString(), Toast.LENGTH_SHORT).show();
         return super.onOptionsItemSelected(item);
-    }
-
-    class MyAdapter extends BaseAdapter
-    {
-
-        @Override
-        public int getCount() {
-            return cities.length;
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        @Override
-        public View getView(final int position, View convertView, ViewGroup parent) {
-            Log.d("MyView", "getView position:" + position);
-
-            LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
-            View v = inflater.inflate(R.layout.myitem, null);
-            final CheckBox chk = (CheckBox) v.findViewById(R.id.checkBox);
-            chk.setText(cities[position]);
-            chk.setChecked(chks[position]);
-            chk.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    chks[position] = isChecked;
-                }
-            });
-
-            TextView tv = (TextView) v.findViewById(R.id.textView);
-            tv.setText(cities[position]);
-            return v;
-        }
     }
 
 }
