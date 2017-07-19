@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -47,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
 
             LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
             View v = inflater.inflate(R.layout.myitem, null);
+            CheckBox chk = (CheckBox) v.findViewById(R.id.checkBox);
+            chk.setText(cities[position]);
 
             TextView tv = (TextView) v.findViewById(R.id.textView);
             tv.setText(cities[position]);
